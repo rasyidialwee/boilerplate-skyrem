@@ -2,7 +2,7 @@ import '../css/app.css';
 
 import { createInertiaApp } from '@inertiajs/react';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
-import { StrictMode } from 'react';
+import { StrictMode, type ComponentType } from 'react';
 import { createRoot } from 'react-dom/client';
 import { initializeTheme } from './hooks/use-appearance';
 import { configureEcho } from '@laravel/echo-react';
@@ -13,17 +13,21 @@ configureEcho({
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
-createInertiaApp({
-    title: (title) => (title ? `${title} - ${appName}` : appName),
-    resolve: (name) =>
-        resolvePageComponent(
-            `./pages/${name}.tsx`,
-            import.meta.glob('./pages/**/*.tsx'),
-        ),
-    setup({ el, App, props }) {
-        const root = createRoot(el);
+const resolvePage = (name: string): Promise<ComponentType> =>
+    resolvePageComponent(
+        `./pages/${name}.tsx`,
+        import.meta.glob('./pages/**/*.tsx'),
+    ).then((module) => (module as { default: ComponentType }).default);
 
-        root.render(
+void createInertiaApp({
+    title: (title) => (title ? `${title} - ${appName}` : appName),
+    resolve: resolvePage,
+    setup({ el, App, props }) {
+        if (!el) {
+            throw new Error('Inertia root element not found.');
+        }
+
+        createRoot(el).render(
             <StrictMode>
                 <App {...props} />
             </StrictMode>,

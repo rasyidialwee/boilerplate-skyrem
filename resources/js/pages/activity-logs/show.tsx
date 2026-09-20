@@ -1,5 +1,5 @@
-import { type BreadcrumbItem, type SharedData } from '@/types';
-import { Head, Link, usePage } from '@inertiajs/react';
+import { type BreadcrumbItem } from '@/types';
+import { Head, Link } from '@inertiajs/react';
 import { ArrowLeft } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -67,9 +67,10 @@ export default function ActivityLogShow({
         return String(value);
     };
 
-    const hasChanges =
+    const hasChanges = Boolean(
         activityLog.properties &&
-        (activityLog.properties.old || activityLog.properties.attributes);
+            (activityLog.properties.old || activityLog.properties.attributes),
+    );
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -166,7 +167,7 @@ export default function ActivityLogShow({
                                 </h3>
                                 <div className="space-y-4">
                                     {activityLog.event === 'updated' &&
-                                        activityLog.properties.old && (
+                                        !!activityLog.properties.old && (
                                             <div>
                                                 <label className="text-sm font-medium text-muted-foreground">
                                                     Old Values
@@ -179,7 +180,7 @@ export default function ActivityLogShow({
                                                 </pre>
                                             </div>
                                         )}
-                                    {activityLog.properties.attributes && (
+                                    {!!activityLog.properties.attributes && (
                                         <div>
                                             <label className="text-sm font-medium text-muted-foreground">
                                                 {activityLog.event === 'created'

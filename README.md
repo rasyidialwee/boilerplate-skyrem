@@ -4,12 +4,12 @@ A modern Laravel 13 application with React and TypeScript, powered by Inertia.js
 
 ## 🚀 Tech Stack
 
-- **Backend**: Laravel 13 (PHP **^8.3** in `composer.json`; the Sail image ships **PHP 8.4**)
-- **Frontend**: React 19 with TypeScript
-- **Framework**: Inertia.js
+- **Backend**: Laravel 13 (PHP **^8.4**)
+- **Frontend**: React 19 with TypeScript 7 (`tsc`) / TypeScript 6 API for ESLint
+- **Framework**: Inertia.js v3
 - **Routing / client URLs**: [Laravel Wayfinder](https://github.com/laravel/wayfinder) (generated actions and route helpers)
 - **Styling**: Tailwind CSS 4
-- **Build Tool**: Vite
+- **Build Tool**: Vite 8
 - **Containerization**: Laravel Sail (Docker)
 - **Database**: MySQL 8.0
 - **Cache/Sessions**: Redis
@@ -18,7 +18,7 @@ A modern Laravel 13 application with React and TypeScript, powered by Inertia.js
 - **Email Testing**: Mailpit
 - **Code Quality**: Larastan (PHPStan), Rector, Laravel Pint
 - **Testing**: Pest 4, Pest architecture plugin (`pestphp/pest-plugin-arch`)
-- **Permissions**: Spatie Laravel Permission
+- **Permissions**: Spatie Laravel Permission v8
 - **Activity**: Spatie Laravel Activity Log
 - **API filtering**: Spatie Laravel Query Builder
 - **Settings**: Spatie Laravel Settings
