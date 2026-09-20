@@ -111,7 +111,7 @@ export default function UsersIndex({ users }: UsersIndexProps) {
         }, 500); // 500ms debounce
 
         return () => clearTimeout(timeoutId);
-         
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [search]);
 
     const handleClearSearch = () => {
