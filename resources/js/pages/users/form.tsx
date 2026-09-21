@@ -4,7 +4,7 @@ import {
     type SharedData,
     type User,
 } from '@/types';
-import { Head, Link, router, usePage } from '@inertiajs/react';
+import { Head, Link, router, useForm, usePage } from '@inertiajs/react';
 import { ArrowLeft, Check } from 'lucide-react';
 import { useCallback, useEffect, useMemo } from 'react';
 
@@ -20,7 +20,6 @@ import {
     SelectValue,
 } from '@/components/ui/select';
 import AppLayout from '@/layouts/app-layout';
-import { useForm } from 'laravel-precognition-react-inertia';
 
 interface UsersFormProps {
     user?: User;
@@ -42,7 +41,6 @@ export default function UsersForm({ user, roles }: UsersFormProps) {
         },
     ];
 
-    // Initialize Precognition form
     const form = useForm(
         isEditMode ? 'patch' : 'post',
         isEditMode ? `/users/${user?.id}` : '/users',
