@@ -2,8 +2,8 @@
 
 namespace App\Traits;
 
-use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\LogsActivity as SpatieLogsActivity;
+use Spatie\Activitylog\Models\Concerns\LogsActivity as SpatieLogsActivity;
+use Spatie\Activitylog\Support\LogOptions;
 
 trait LogsActivity
 {
@@ -17,7 +17,7 @@ trait LogsActivity
         return LogOptions::defaults()
             ->logAll()
             ->logOnlyDirty()
-            ->dontSubmitEmptyLogs()
+            ->dontLogEmptyChanges()
             ->logExcept($this->getLogAttributesToIgnore())
             ->setDescriptionForEvent(fn (string $eventName) => $this->getDescriptionForEvent($eventName));
     }

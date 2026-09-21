@@ -20,10 +20,10 @@
         "laravel/telescope": "^5.24",
         "laravel/tinker": "^3.0",
         "laravel/wayfinder": "^0.1.21",
-        "spatie/laravel-activitylog": "^4.12",
+        "spatie/laravel-activitylog": "^5.0",
         "spatie/laravel-medialibrary": "^11.23",
         "spatie/laravel-permission": "^8.0",
-        "spatie/laravel-query-builder": "^6.4",
+        "spatie/laravel-query-builder": "^7.0",
         "spatie/laravel-settings": "^3.9"
     },
     "require-dev": {
@@ -36,9 +36,9 @@
         "laravel/sail": "^1.47",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.6",
-        "pestphp/pest": "^4.1",
-        "pestphp/pest-plugin-arch": "^4.0",
-        "pestphp/pest-plugin-laravel": "^4.0",
+        "pestphp/pest": "^5.0",
+        "pestphp/pest-plugin-arch": "^5.0",
+        "pestphp/pest-plugin-laravel": "^5.0",
         "rector/rector": "^2.0"
     },
     "autoload": {

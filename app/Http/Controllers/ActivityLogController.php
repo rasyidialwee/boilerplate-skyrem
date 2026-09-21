@@ -23,7 +23,7 @@ class ActivityLogController extends Controller
         $perPage = in_array($perPage, [10, 25, 50, 100]) ? (int) $perPage : 10;
 
         $activityLogs = QueryBuilder::for(Activity::class)
-            ->allowedFilters([
+            ->allowedFilters(
                 AllowedFilter::exact('event'),
                 AllowedFilter::exact('subject_type'),
                 AllowedFilter::exact('causer_id', 'causer.id'),
@@ -31,9 +31,9 @@ class ActivityLogController extends Controller
                     return $query->where('description', 'like', "%{$value}%")
                         ->orWhere('subject_type', 'like', "%{$value}%");
                 }),
-            ])
-            ->allowedSorts(['created_at', 'event', 'subject_type'])
-            ->allowedIncludes(['causer', 'subject'])
+            )
+            ->allowedSorts('created_at', 'event', 'subject_type')
+            ->allowedIncludes('causer', 'subject')
             ->defaultSort('-created_at')
             ->with(['causer', 'subject'])
             ->paginate($perPage)

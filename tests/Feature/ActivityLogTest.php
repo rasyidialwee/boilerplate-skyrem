@@ -183,10 +183,10 @@ test('sensitive fields are not logged', function () {
         ->first();
 
     $this->assertNotNull($activity);
-    $properties = $activity->properties;
+    $attributeChanges = $activity->attribute_changes;
 
-    // Check that password is not in the logged properties
-    if (isset($properties['attributes'])) {
-        $this->assertArrayNotHasKey('password', $properties['attributes']);
+    // Check that password is not in the logged attribute changes
+    if (isset($attributeChanges['attributes'])) {
+        $this->assertArrayNotHasKey('password', $attributeChanges['attributes']);
     }
 });

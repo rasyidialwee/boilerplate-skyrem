@@ -31,12 +31,12 @@ class UserController extends Controller
         $perPage = in_array($perPage, [10, 25, 50, 100]) ? (int) $perPage : 10;
 
         $users = QueryBuilder::for(User::class)
-            ->allowedFilters([
+            ->allowedFilters(
                 AllowedFilter::scope('search'),
                 AllowedFilter::exact('role', 'roles.name'),
-            ])
-            ->allowedSorts(['name', 'email', 'created_at'])
-            ->allowedIncludes(['roles'])
+            )
+            ->allowedSorts('name', 'email', 'created_at')
+            ->allowedIncludes('roles')
             ->defaultSort('-created_at')
             ->with('roles')
             ->paginate($perPage)
