@@ -1,5 +1,6 @@
 <?php
 
+use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -9,7 +10,7 @@ return new class extends Migration
     /**
      * Spatie Laravel Permission tables (roles, permissions, pivots).
      *
-     * Permission rows are created with canonical snake_case names in {@see \Database\Seeders\RolePermissionSeeder}.
+     * Permission rows are created with canonical snake_case names in {@see RolePermissionSeeder}.
      */
     public function up(): void
     {

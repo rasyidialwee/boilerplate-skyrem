@@ -23,6 +23,7 @@ class HandleInertiaRequests extends Middleware
             'view_horizon' => $user->can('view_horizon'),
         ];
     }
+
     /**
      * The root template that's loaded on the first page visit.
      *
