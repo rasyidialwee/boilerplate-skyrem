@@ -25,7 +25,7 @@ class RoleController extends Controller
     {
         $this->authorize('viewAny', Role::class);
 
-        $perPage = $request->get('per_page', 10);
+        $perPage = $request->input('per_page', 10);
         $perPage = in_array($perPage, [10, 25, 50, 100]) ? (int) $perPage : 10;
 
         $roles = QueryBuilder::for(Role::class)
