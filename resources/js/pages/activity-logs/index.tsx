@@ -102,7 +102,7 @@ export default function ActivityLogsIndex({
         }, 500); // 500ms debounce
 
         return () => clearTimeout(timeoutId);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+         
     }, [search]);
 
     const handleClearSearch = () => {
@@ -326,4 +326,3 @@ export default function ActivityLogsIndex({
         </AppLayout>
     );
 }
-

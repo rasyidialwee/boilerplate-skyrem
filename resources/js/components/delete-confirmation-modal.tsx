@@ -36,7 +36,7 @@ export default function DeleteConfirmationModal({
         <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
             <DialogContent className="sm:max-w-md">
                 <DialogHeader>
-                    <div className="flex items-center justify-center mb-2">
+                    <div className="mb-2 flex items-center justify-center">
                         <div className="rounded-full bg-destructive/10 p-3">
                             <AlertTriangle className="h-6 w-6 text-destructive" />
                         </div>
@@ -46,7 +46,7 @@ export default function DeleteConfirmationModal({
                         {description || defaultDescription}
                     </DialogDescription>
                 </DialogHeader>
-                <DialogFooter className="sm:justify-center gap-2">
+                <DialogFooter className="gap-2 sm:justify-center">
                     <Button
                         variant="outline"
                         onClick={onClose}
@@ -66,4 +66,3 @@ export default function DeleteConfirmationModal({
         </Dialog>
     );
 }
-

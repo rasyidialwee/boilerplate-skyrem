@@ -47,7 +47,9 @@ export default function AppearanceToggleButton({
                 size="icon"
                 className="h-9 w-9 rounded-md"
                 onClick={toggleAppearance}
-                aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+                aria-label={
+                    isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'
+                }
             >
                 {isDarkMode ? (
                     <Moon className="h-5 w-5" />
@@ -58,4 +60,3 @@ export default function AppearanceToggleButton({
         </div>
     );
 }
-

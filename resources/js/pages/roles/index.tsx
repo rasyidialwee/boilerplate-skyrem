@@ -111,7 +111,7 @@ export default function RolesIndex({ roles }: RolesIndexProps) {
         }, 500); // 500ms debounce
 
         return () => clearTimeout(timeoutId);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+         
     }, [search]);
 
     const handleClearSearch = () => {
@@ -205,9 +205,9 @@ export default function RolesIndex({ roles }: RolesIndexProps) {
                                 <code className="rounded bg-blue-100 px-1.5 py-0.5 font-mono text-xs dark:bg-blue-900">
                                     database/seeders/RolePermissionSeeder.php
                                 </code>{' '}
-                                and assigned to roles here. Adjust the seeder when
-                                you add new abilities, then run migrations and
-                                seed.
+                                and assigned to roles here. Adjust the seeder
+                                when you add new abilities, then run migrations
+                                and seed.
                             </p>
                         </div>
                     </div>

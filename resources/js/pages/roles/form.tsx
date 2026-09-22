@@ -373,7 +373,9 @@ export default function RolesForm({ role, permissions }: RolesFormProps) {
                                 <div className="flex items-center gap-4">
                                     <Button type="submit" disabled={processing}>
                                         <Check className="mr-2 h-4 w-4" />
-                                        {isEditMode ? 'Update Role' : 'Create Role'}
+                                        {isEditMode
+                                            ? 'Update Role'
+                                            : 'Create Role'}
                                     </Button>
                                     <Link href="/roles">
                                         <Button variant="outline" type="button">

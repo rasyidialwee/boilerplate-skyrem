@@ -1,5 +1,10 @@
 import { Link } from '@inertiajs/react';
-import { ChevronFirst, ChevronLast, ChevronLeft, ChevronRight } from 'lucide-react';
+import {
+    ChevronFirst,
+    ChevronLast,
+    ChevronLeft,
+    ChevronRight,
+} from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -153,4 +158,3 @@ export default function DataTablePagination({
         </div>
     );
 }
-
