@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+OUTPUT_DIR="${ROOT}/test-output"
+SANDBOX_DIR="${OUTPUT_DIR}/sandbox"
+PACKAGE_NAME="skyrem/boilerplate"
+
+usage() {
+  cat <<EOF
+Usage: bin/sandbox <command>
+
+Commands:
+  run     Create a fresh Laravel app, path-require this package, run skyrem:install
+  reset   Remove test-output/sandbox
+  help    Show this help
+EOF
+}
+
+require_laravel_installer() {
+  if ! command -v laravel >/dev/null 2>&1; then
+    echo "Laravel installer not found. Install with:"
+    echo "  composer global require laravel/installer"
+    exit 1
+  fi
+}
+
+cmd_reset() {
+  rm -rf "${SANDBOX_DIR}"
+  echo "Removed ${SANDBOX_DIR}"
+}
+
+cmd_run() {
+  require_laravel_installer
+  mkdir -p "${OUTPUT_DIR}"
+  rm -rf "${SANDBOX_DIR}"
+
+  echo "Creating fresh Laravel React app in ${SANDBOX_DIR}..."
+  (
+    cd "${OUTPUT_DIR}"
+    laravel new sandbox \
+      --react \
+      --pest \
+      --npm \
+      --no-interaction
+  )
+
+  cd "${SANDBOX_DIR}"
+
+  echo "Path-requiring ${PACKAGE_NAME}..."
+  composer config repositories.skyrem-boilerplate "{\"type\":\"path\",\"url\":\"${ROOT}\",\"options\":{\"symlink\":true}}"
+  composer require "${PACKAGE_NAME}:@dev" --dev --no-interaction
+
+  echo "Running php artisan skyrem:install..."
+  php artisan skyrem:install --force --no-interaction --skip-packages --skip-migrate
+
+  echo ""
+  echo "Sandbox ready at: ${SANDBOX_DIR}"
+  echo "To finish dependency install manually:"
+  echo "  cd ${SANDBOX_DIR} && composer update && npm install && php artisan migrate --seed"
+}
+
+case "${1:-help}" in
+  run) cmd_run ;;
+  reset) cmd_reset ;;
+  help|-h|--help) usage ;;
+  *) usage; exit 1 ;;
+esac

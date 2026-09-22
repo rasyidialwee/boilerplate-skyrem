@@ -1,0 +1,26 @@
+<?php
+
+namespace App\Http\Requests\Roles;
+
+use Illuminate\Contracts\Validation\ValidationRule;
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+use Spatie\Permission\Models\Role;
+
+class StoreRoleRequest extends FormRequest
+{
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, ValidationRule|array<mixed>|string>
+     */
+    public function rules(): array
+    {
+        return [
+            'name' => ['required', 'string', 'max:255', Rule::unique(Role::class)->where('guard_name', $this->input('guard_name', 'web'))],
+            'guard_name' => ['sometimes', 'string', 'max:255'],
+            'permissions' => ['nullable', 'array'],
+            'permissions.*' => ['exists:permissions,id'],
+        ];
+    }
+}

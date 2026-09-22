@@ -1,0 +1,83 @@
+{
+    "require": {
+        "php": "^8.4",
+        "cleaniquecoders/laravel-media-secure": "^3.3",
+        "cleaniquecoders/traitify": "^1.4",
+        "inertiajs/inertia-laravel": "^3.0",
+        "laravel/fortify": "^1.39",
+        "laravel/framework": "^13.0",
+        "laravel/horizon": "^5.49",
+        "laravel/reverb": "^1.11",
+        "laravel/telescope": "^5.24",
+        "laravel/tinker": "^3.0",
+        "laravel/wayfinder": "^0.1.21",
+        "spatie/laravel-activitylog": "^5.0",
+        "spatie/laravel-medialibrary": "^11.23",
+        "spatie/laravel-permission": "^8.0",
+        "spatie/laravel-query-builder": "^7.0",
+        "spatie/laravel-settings": "^3.9"
+    },
+    "require-dev": {
+        "driftingly/rector-laravel": "^2.1",
+        "fakerphp/faker": "^1.23",
+        "larastan/larastan": "^3.0",
+        "laravel/boost": "^2.0",
+        "laravel/pail": "^1.2.2",
+        "laravel/pint": "^1.24",
+        "laravel/sail": "^1.47",
+        "mockery/mockery": "^1.6",
+        "nunomaduro/collision": "^8.6",
+        "pestphp/pest": "^5.0",
+        "pestphp/pest-plugin-arch": "^5.0",
+        "pestphp/pest-plugin-laravel": "^5.0",
+        "rector/rector": "^2.0"
+    },
+    "scripts": {
+        "setup": [
+            "composer install",
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+            "@php artisan key:generate",
+            "@php artisan migrate --force",
+            "npm install",
+            "npm run build"
+        ],
+        "dev": [
+            "Composer\\Config::disableProcessTimeout",
+            "npx concurrently -c \"#93c5fd,#c4b5fd,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"npm run dev\" --names='server,queue,vite'"
+        ],
+        "dev:ssr": [
+            "npm run build:ssr",
+            "Composer\\Config::disableProcessTimeout",
+            "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"php artisan pail --timeout=0\" \"php artisan inertia:start-ssr\" --names=server,queue,logs,ssr --kill-others"
+        ],
+        "test": [
+            "@php artisan config:clear --ansi",
+            "@php artisan test"
+        ],
+        "test-arch": [
+            "@php artisan test tests/Unit/ArchitectureTest.php"
+        ],
+        "format": [
+            "@php vendor/bin/pint"
+        ],
+        "analyse": [
+            "./bin/php vendor/bin/phpstan analyse --no-progress"
+        ],
+        "phpstan": [
+            "./bin/php vendor/bin/phpstan analyse --no-progress"
+        ],
+        "rector": [
+            "./bin/php vendor/bin/rector process"
+        ],
+        "rector:dry": [
+            "./bin/php vendor/bin/rector process --dry-run --no-progress-bar"
+        ],
+        "rector:fix": [
+            "./bin/php vendor/bin/rector process"
+        ],
+        "lint": [
+            "@phpstan",
+            "@rector:dry"
+        ]
+    }
+}

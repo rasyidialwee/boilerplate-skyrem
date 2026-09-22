@@ -1,0 +1,5 @@
+{
+    "providers": [
+        "Skyrem\\Boilerplate\\SkyremBoilerplateServiceProvider"
+    ]
+}

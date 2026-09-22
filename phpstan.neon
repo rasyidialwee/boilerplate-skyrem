@@ -1,23 +1,4 @@
-includes:
-    - vendor/larastan/larastan/extension.neon
-
 parameters:
+    level: 6
     paths:
-        - app/
-        - config/
-        - database/
-        - routes/
-
-    # Rule level (0 is the loosest and 9 is the strictest)
-    level: 5
-
-    # Exclude paths
-    excludePaths:
-        - vendor/
-        - storage/
-        - bootstrap/cache/
-
-    # Laravel specific ignores
-    ignoreErrors:
-        - '#Access to an undefined property [a-zA-Z0-9\\_]+::\$[a-zA-Z0-9]+#'
-
+        - src

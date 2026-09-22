@@ -1,11 +1,12 @@
-* text=auto eol=lf
-
-*.blade.php diff=html
-*.css diff=css
-*.html diff=html
-*.md diff=markdown
-*.php diff=php
-
-CHANGELOG.md export-ignore
-README.md export-ignore
-.github/workflows/browser-tests.yml export-ignore
+# Path-based packages cannot be unambiguously resolved when a package with the same
+# name appears in multiple repositories. Exclude docs/tests from Packagist archives.
+/.github export-ignore
+/tests export-ignore
+/test-output export-ignore
+/bin/sandbox export-ignore
+/.editorconfig export-ignore
+/phpunit.xml export-ignore
+/phpstan.neon export-ignore
+/pint.json export-ignore
+/testbench.yaml export-ignore
+/.gitignore export-ignore
