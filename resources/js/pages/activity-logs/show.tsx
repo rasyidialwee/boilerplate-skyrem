@@ -1,5 +1,5 @@
-import { type BreadcrumbItem, type SharedData } from '@/types';
-import { Head, Link, usePage } from '@inertiajs/react';
+import { type BreadcrumbItem } from '@/types';
+import { Head, Link } from '@inertiajs/react';
 import { ArrowLeft } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -17,7 +17,11 @@ interface ActivityLog {
         name: string;
         email: string;
     } | null;
-    properties: Record<string, unknown>;
+    properties: Record<string, unknown> | null;
+    attribute_changes: {
+        old?: Record<string, unknown>;
+        attributes?: Record<string, unknown>;
+    } | null;
     created_at: string;
     updated_at: string;
 }
@@ -67,9 +71,16 @@ export default function ActivityLogShow({
         return String(value);
     };
 
-    const hasChanges =
+    const hasChanges = Boolean(
+        activityLog.attribute_changes &&
+            (activityLog.attribute_changes.old ||
+                activityLog.attribute_changes.attributes),
+    );
+
+    const hasProperties = Boolean(
         activityLog.properties &&
-        (activityLog.properties.old || activityLog.properties.attributes);
+            Object.keys(activityLog.properties).length > 0,
+    );
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -166,20 +177,23 @@ export default function ActivityLogShow({
                                 </h3>
                                 <div className="space-y-4">
                                     {activityLog.event === 'updated' &&
-                                        activityLog.properties.old && (
+                                        !!activityLog.attribute_changes
+                                            ?.old && (
                                             <div>
                                                 <label className="text-sm font-medium text-muted-foreground">
                                                     Old Values
                                                 </label>
                                                 <pre className="mt-2 overflow-x-auto rounded-md bg-muted p-4 text-sm">
                                                     {formatPropertyValue(
-                                                        activityLog.properties
+                                                        activityLog
+                                                            .attribute_changes
                                                             .old,
                                                     )}
                                                 </pre>
                                             </div>
                                         )}
-                                    {activityLog.properties.attributes && (
+                                    {!!activityLog.attribute_changes
+                                        ?.attributes && (
                                         <div>
                                             <label className="text-sm font-medium text-muted-foreground">
                                                 {activityLog.event === 'created'
@@ -188,7 +202,8 @@ export default function ActivityLogShow({
                                             </label>
                                             <pre className="mt-2 overflow-x-auto rounded-md bg-muted p-4 text-sm">
                                                 {formatPropertyValue(
-                                                    activityLog.properties
+                                                    activityLog
+                                                        .attribute_changes
                                                         .attributes,
                                                 )}
                                             </pre>
@@ -198,7 +213,7 @@ export default function ActivityLogShow({
                             </div>
                         )}
 
-                        {Object.keys(activityLog.properties).length > 0 && (
+                        {hasProperties && (
                             <div>
                                 <h3 className="mb-4 text-lg font-semibold">
                                     All Properties

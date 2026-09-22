@@ -13,9 +13,7 @@ export default defineConfig({
             refresh: true,
         }),
         react({
-            babel: {
-                plugins: ['babel-plugin-react-compiler'],
-            },
+            compiler: true,
         }),
         tailwindcss(),
         wayfinder({
@@ -24,10 +22,7 @@ export default defineConfig({
     ],
     resolve: {
         alias: {
-            '@': path.resolve(__dirname, './resources/js'),
+            '@': path.resolve(import.meta.dirname, './resources/js'),
         },
-    },
-    esbuild: {
-        jsx: 'automatic',
     },
 });

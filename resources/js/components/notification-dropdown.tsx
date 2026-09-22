@@ -2,7 +2,6 @@ import { Button } from '@/components/ui/button';
 import {
     DropdownMenu,
     DropdownMenuContent,
-    DropdownMenuItem,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
@@ -54,10 +53,7 @@ export default function NotificationDropdown({
         );
     };
 
-    const handleNotificationClick = (
-        notification: Notification,
-        e: React.MouseEvent,
-    ) => {
+    const handleNotificationClick = (notification: Notification) => {
         // Only navigate if there's an action URL, don't mark as read
         if (notification.action_url) {
             router.visit(notification.action_url);
@@ -90,7 +86,7 @@ export default function NotificationDropdown({
                 <DropdownMenuContent
                     align="end"
                     className="w-80"
-                    onOpenAutoFocus={(e) => e.preventDefault()}
+                    onCloseAutoFocus={(e: Event) => e.preventDefault()}
                 >
                     <div className="flex items-center justify-between px-2 py-1.5">
                         <h3 className="text-sm font-semibold">Notifications</h3>
@@ -118,11 +114,8 @@ export default function NotificationDropdown({
                                 >
                                     <div
                                         className="cursor-pointer"
-                                        onClick={(e) =>
-                                            handleNotificationClick(
-                                                notification,
-                                                e,
-                                            )
+                                        onClick={() =>
+                                            handleNotificationClick(notification)
                                         }
                                     >
                                         <div className="flex items-center gap-2">

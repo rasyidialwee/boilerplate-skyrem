@@ -16,7 +16,7 @@ interface DataTablePaginationProps {
     perPage: number;
     total: number;
     onPageChange: (page: number) => string;
-    onPerPageChange: (perPage: number) => void;
+    onPerPageChange?: (perPage: number) => void;
     perPageOptions?: number[];
 }
 
@@ -24,13 +24,13 @@ export default function DataTablePagination({
     currentPage,
     lastPage,
     perPage,
-    total,
+    total: _total,
     onPageChange,
     onPerPageChange,
     perPageOptions = [10, 25, 50, 100],
 }: DataTablePaginationProps) {
     const handlePerPageChange = (value: string) => {
-        onPerPageChange(Number(value));
+        onPerPageChange?.(Number(value));
     };
 
     return (

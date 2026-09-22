@@ -29,14 +29,14 @@ class RoleController extends Controller
         $perPage = in_array($perPage, [10, 25, 50, 100]) ? (int) $perPage : 10;
 
         $roles = QueryBuilder::for(Role::class)
-            ->allowedFilters([
+            ->allowedFilters(
                 AllowedFilter::callback('search', function ($query, $value) {
                     return $query->where('name', 'like', "%{$value}%")
                         ->orWhere('guard_name', 'like', "%{$value}%");
                 }),
-            ])
-            ->allowedSorts(['name', 'guard_name', 'created_at'])
-            ->allowedIncludes(['permissions'])
+            )
+            ->allowedSorts('name', 'guard_name', 'created_at')
+            ->allowedIncludes('permissions')
             ->defaultSort('-created_at')
             ->with('permissions')
             ->withCount('permissions')

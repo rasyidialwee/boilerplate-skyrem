@@ -4,12 +4,12 @@ A modern Laravel 13 application with React and TypeScript, powered by Inertia.js
 
 ## 🚀 Tech Stack
 
-- **Backend**: Laravel 13 (PHP **^8.3** in `composer.json`; the Sail image ships **PHP 8.4**)
-- **Frontend**: React 19 with TypeScript
-- **Framework**: Inertia.js
+- **Backend**: Laravel 13 (PHP **^8.4**)
+- **Frontend**: React 19 with TypeScript 7 (`tsc`) / TypeScript 6 API for ESLint
+- **Framework**: Inertia.js v3
 - **Routing / client URLs**: [Laravel Wayfinder](https://github.com/laravel/wayfinder) (generated actions and route helpers)
 - **Styling**: Tailwind CSS 4
-- **Build Tool**: Vite
+- **Build Tool**: Vite 8
 - **Containerization**: Laravel Sail (Docker)
 - **Database**: MySQL 8.0
 - **Cache/Sessions**: Redis
@@ -18,13 +18,13 @@ A modern Laravel 13 application with React and TypeScript, powered by Inertia.js
 - **Email Testing**: Mailpit
 - **Code Quality**: Larastan (PHPStan), Rector, Laravel Pint
 - **Testing**: Pest 4, Pest architecture plugin (`pestphp/pest-plugin-arch`)
-- **Permissions**: Spatie Laravel Permission
+- **Permissions**: Spatie Laravel Permission v8
 - **Activity**: Spatie Laravel Activity Log
 - **API filtering**: Spatie Laravel Query Builder
 - **Settings**: Spatie Laravel Settings
 - **Media & uploads**: [Spatie Laravel Media Library](https://spatie.be/docs/laravel-medialibrary), [Laravel Media Secure](https://github.com/cleaniquecoders/laravel-media-secure), [Traitify](https://github.com/cleaniquecoders/traitify) (shared UUIDs on models)
 - **Frontend Tools**: ESLint, Prettier
-- **Form Validation**: Laravel Precognition (real-time validation)
+- **Form Validation**: Inertia built-in Precognition (real-time validation)
 - **DX (dev)**: Laravel Boost, Laravel Pail
 
 ## 📋 Prerequisites
@@ -213,7 +213,7 @@ ESLint is configured in `eslint.config.js` with React, TypeScript, and Prettier 
 
 ## Laravel Precognition
 
-This project uses [Laravel Precognition](https://laravel.com/docs/13.x/precognition) for real-time form validation. Precognition provides instant validation feedback as users type, without requiring a full form submission.
+This project uses [Laravel Precognition](https://laravel.com/docs/13.x/precognition) via [Inertia's built-in `useForm` support](https://inertiajs.com/docs/v3/the-basics/forms) for real-time form validation. Server routes that need it are wrapped with `HandlePrecognitiveRequests`. Instant field feedback runs against your Laravel validation rules without a full form submission.
 
 ## Queue Management (Laravel Horizon)
 
