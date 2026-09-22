@@ -1,7 +1,7 @@
 import SystemSettingsController from '@/actions/App/Http/Controllers/Settings/SystemSettingsController';
-import { type BreadcrumbItem, type SharedData } from '@/types';
+import { type BreadcrumbItem } from '@/types';
 import { Transition } from '@headlessui/react';
-import { Head, router, usePage } from '@inertiajs/react';
+import { Head, router } from '@inertiajs/react';
 import { useState } from 'react';
 
 import HeadingSmall from '@/components/heading-small';
@@ -25,7 +25,6 @@ interface SystemSettingsProps {
 }
 
 export default function System({ settings }: SystemSettingsProps) {
-    const { auth } = usePage<SharedData>().props;
     const [registrationEnabled, setRegistrationEnabled] = useState(
         settings.registration_enabled,
     );

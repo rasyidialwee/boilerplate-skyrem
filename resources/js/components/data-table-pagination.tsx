@@ -29,7 +29,6 @@ export default function DataTablePagination({
     currentPage,
     lastPage,
     perPage,
-    total: _total,
     onPageChange,
     onPerPageChange,
     perPageOptions = [10, 25, 50, 100],

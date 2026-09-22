@@ -49,6 +49,12 @@ export default function ActivityLogsIndex({
     };
 
     const [search, setSearch] = useState(getSearchFromUrl());
+    const [trackedUrl, setTrackedUrl] = useState(url);
+
+    if (url !== trackedUrl) {
+        setTrackedUrl(url);
+        setSearch(getSearchFromUrl());
+    }
 
     const breadcrumbs: BreadcrumbItem[] = [
         {
@@ -56,15 +62,6 @@ export default function ActivityLogsIndex({
             href: '/activity-logs',
         },
     ];
-
-    // Update search when URL changes (e.g., back button)
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            const urlParams = new URLSearchParams(window.location.search);
-            const searchParam = urlParams.get('filter[search]') || '';
-            setSearch(searchParam);
-        }
-    }, [url]);
 
     // Debounced search - triggers when search has at least 3 characters
     useEffect(() => {
@@ -102,7 +99,6 @@ export default function ActivityLogsIndex({
         }, 500); // 500ms debounce
 
         return () => clearTimeout(timeoutId);
-         
     }, [search]);
 
     const handleClearSearch = () => {
@@ -120,17 +116,14 @@ export default function ActivityLogsIndex({
     };
 
     const [perPage, setPerPage] = useState(getPerPageFromUrl());
+    const perPageSourceKey = `${url}:${activityLogs.per_page}`;
+    const [trackedPerPageSource, setTrackedPerPageSource] =
+        useState(perPageSourceKey);
 
-    // Update per_page when URL changes
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            const urlParams = new URLSearchParams(window.location.search);
-            const perPageParam = urlParams.get('per_page');
-            if (perPageParam) {
-                setPerPage(Number(perPageParam));
-            }
-        }
-    }, [url, activityLogs.per_page]);
+    if (perPageSourceKey !== trackedPerPageSource) {
+        setTrackedPerPageSource(perPageSourceKey);
+        setPerPage(getPerPageFromUrl());
+    }
 
     const getPaginationUrl = (page: number) => {
         const params = new URLSearchParams();
