@@ -6,7 +6,7 @@ import {
 } from '@/types';
 import { Form, Head, Link, usePage } from '@inertiajs/react';
 import { ArrowLeft, Check } from 'lucide-react';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
@@ -40,14 +40,19 @@ export default function RolesForm({ role, permissions }: RolesFormProps) {
         permissions: role?.permissions?.map((p) => p.id) ?? [],
     });
 
+    const rolePermissions = role?.permissions;
+
     // Create a stable key from role permissions to detect changes
     const rolePermissionsKey = useMemo(() => {
-        if (!role?.permissions) return '';
-        return role.permissions
+        if (!rolePermissions) {
+            return '';
+        }
+
+        return rolePermissions
             .map((p) => p.id)
             .sort()
             .join(',');
-    }, [role?.permissions]);
+    }, [rolePermissions]);
 
     // Categorize permissions by resource
     const categorizedPermissions = useMemo(() => {
@@ -79,13 +84,17 @@ export default function RolesForm({ role, permissions }: RolesFormProps) {
             );
     }, [permissions]);
 
-    // Update form data when role prop changes or when navigating back
-    useEffect(() => {
+    // Sync form when role / URL changes (e.g. Inertia back navigation)
+    const formSyncKey = `${role?.id ?? 'new'}:${rolePermissionsKey}:${url}`;
+    const [trackedFormSyncKey, setTrackedFormSyncKey] = useState(formSyncKey);
+
+    if (formSyncKey !== trackedFormSyncKey) {
+        setTrackedFormSyncKey(formSyncKey);
+
         if (role) {
-            const permissionIds = role.permissions?.map((p) => p.id) ?? [];
             setFormData({
                 name: role.name ?? '',
-                permissions: permissionIds,
+                permissions: role.permissions?.map((p) => p.id) ?? [],
             });
         } else {
             setFormData({
@@ -93,8 +102,7 @@ export default function RolesForm({ role, permissions }: RolesFormProps) {
                 permissions: [],
             });
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [role?.id, rolePermissionsKey, url]); // Update when role ID, permissions, or URL changes
+    }
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -373,7 +381,9 @@ export default function RolesForm({ role, permissions }: RolesFormProps) {
                                 <div className="flex items-center gap-4">
                                     <Button type="submit" disabled={processing}>
                                         <Check className="mr-2 h-4 w-4" />
-                                        {isEditMode ? 'Update Role' : 'Create Role'}
+                                        {isEditMode
+                                            ? 'Update Role'
+                                            : 'Create Role'}
                                     </Button>
                                     <Link href="/roles">
                                         <Button variant="outline" type="button">

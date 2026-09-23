@@ -5,6 +5,7 @@ namespace App\Actions\Roles;
 use Spatie\Permission\Contracts\Role as RoleContract;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use Spatie\Permission\PermissionRegistrar;
 
 class CreateRole
 {
@@ -30,7 +31,7 @@ class CreateRole
         }
 
         // Clear permission cache after syncing
-        app()->make(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();
+        app()->make(PermissionRegistrar::class)->forgetCachedPermissions();
 
         return $role;
     }

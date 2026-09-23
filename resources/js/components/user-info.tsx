@@ -24,7 +24,7 @@ export function UserInfo({
             <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-medium">{user.name}</span>
                 {showRole && user.role && (
-                    <span className="truncate text-xs capitalize text-muted-foreground">
+                    <span className="truncate text-xs text-muted-foreground capitalize">
                         {user.role}
                     </span>
                 )}

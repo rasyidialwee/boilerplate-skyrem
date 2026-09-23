@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
-use RectorLaravel\Set\LaravelSetProvider;
 
 return RectorConfig::configure()
     ->withPaths([
@@ -20,5 +19,4 @@ return RectorConfig::configure()
         __DIR__.'/bootstrap/cache',
         __DIR__.'/node_modules',
     ])
-    ->withSetProviders(LaravelSetProvider::class)
     ->withComposerBased(laravel: true);

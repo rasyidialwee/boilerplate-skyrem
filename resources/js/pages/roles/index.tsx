@@ -37,6 +37,12 @@ export default function RolesIndex({ roles }: RolesIndexProps) {
     };
 
     const [search, setSearch] = useState(getSearchFromUrl());
+    const [trackedUrl, setTrackedUrl] = useState(url);
+
+    if (url !== trackedUrl) {
+        setTrackedUrl(url);
+        setSearch(getSearchFromUrl());
+    }
 
     const breadcrumbs: BreadcrumbItem[] = [
         {
@@ -65,15 +71,6 @@ export default function RolesIndex({ roles }: RolesIndexProps) {
         setDeleteModalOpen(false);
         setRoleToDelete(null);
     };
-
-    // Update search when URL changes (e.g., back button)
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            const urlParams = new URLSearchParams(window.location.search);
-            const searchParam = urlParams.get('filter[search]') || '';
-            setSearch(searchParam);
-        }
-    }, [url]);
 
     // Debounced search - triggers when search has at least 3 characters
     useEffect(() => {
@@ -111,7 +108,6 @@ export default function RolesIndex({ roles }: RolesIndexProps) {
         }, 500); // 500ms debounce
 
         return () => clearTimeout(timeoutId);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [search]);
 
     const handleClearSearch = () => {
@@ -129,17 +125,14 @@ export default function RolesIndex({ roles }: RolesIndexProps) {
     };
 
     const [perPage, setPerPage] = useState(getPerPageFromUrl());
+    const perPageSourceKey = `${url}:${roles.per_page}`;
+    const [trackedPerPageSource, setTrackedPerPageSource] =
+        useState(perPageSourceKey);
 
-    // Update per_page when URL changes
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            const urlParams = new URLSearchParams(window.location.search);
-            const perPageParam = urlParams.get('per_page');
-            if (perPageParam) {
-                setPerPage(Number(perPageParam));
-            }
-        }
-    }, [url, roles.per_page]);
+    if (perPageSourceKey !== trackedPerPageSource) {
+        setTrackedPerPageSource(perPageSourceKey);
+        setPerPage(getPerPageFromUrl());
+    }
 
     const getPaginationUrl = (page: number) => {
         const params = new URLSearchParams();
@@ -205,9 +198,9 @@ export default function RolesIndex({ roles }: RolesIndexProps) {
                                 <code className="rounded bg-blue-100 px-1.5 py-0.5 font-mono text-xs dark:bg-blue-900">
                                     database/seeders/RolePermissionSeeder.php
                                 </code>{' '}
-                                and assigned to roles here. Adjust the seeder when
-                                you add new abilities, then run migrations and
-                                seed.
+                                and assigned to roles here. Adjust the seeder
+                                when you add new abilities, then run migrations
+                                and seed.
                             </p>
                         </div>
                     </div>

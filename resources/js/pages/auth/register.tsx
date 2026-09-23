@@ -101,7 +101,8 @@ export default function Register() {
                                     tabIndex={-1}
                                 />
                                 <p className="text-xs text-muted-foreground">
-                                    New users are automatically assigned the user role.
+                                    New users are automatically assigned the
+                                    user role.
                                 </p>
                             </div>
 

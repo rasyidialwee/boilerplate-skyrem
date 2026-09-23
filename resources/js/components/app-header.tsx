@@ -247,7 +247,10 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                                         </Avatar>
                                     </Button>
                                 </DropdownMenuTrigger>
-                                <DropdownMenuContent className="w-56" align="end">
+                                <DropdownMenuContent
+                                    className="w-56"
+                                    align="end"
+                                >
                                     <UserMenuContent user={user} />
                                 </DropdownMenuContent>
                             </DropdownMenu>

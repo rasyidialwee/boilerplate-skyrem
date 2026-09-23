@@ -1,5 +1,5 @@
-import { type BreadcrumbItem, type Role, type SharedData } from '@/types';
-import { Head, Link, usePage } from '@inertiajs/react';
+import { type BreadcrumbItem, type Role } from '@/types';
+import { Head, Link } from '@inertiajs/react';
 import { ArrowLeft, Shield } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -60,7 +60,9 @@ export default function RolesShow({ role }: RolesShowProps) {
                                     <label className="text-sm font-medium text-muted-foreground">
                                         Name
                                     </label>
-                                    <p className="mt-1 text-base">{role.name}</p>
+                                    <p className="mt-1 text-base">
+                                        {role.name}
+                                    </p>
                                 </div>
                                 <div>
                                     <label className="text-sm font-medium text-muted-foreground">
@@ -102,5 +104,3 @@ export default function RolesShow({ role }: RolesShowProps) {
         </AppLayout>
     );
 }
-
-

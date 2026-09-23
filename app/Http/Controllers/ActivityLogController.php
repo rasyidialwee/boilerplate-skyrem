@@ -19,7 +19,7 @@ class ActivityLogController extends Controller
     {
         Gate::authorize('viewAny', Activity::class);
 
-        $perPage = $request->get('per_page', 10);
+        $perPage = $request->input('per_page', 10);
         $perPage = in_array($perPage, [10, 25, 50, 100]) ? (int) $perPage : 10;
 
         $activityLogs = QueryBuilder::for(Activity::class)

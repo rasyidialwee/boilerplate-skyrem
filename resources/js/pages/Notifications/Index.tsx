@@ -4,8 +4,8 @@ import { Bell, CheckCheck } from 'lucide-react';
 import { useState } from 'react';
 
 import DataTablePagination from '@/components/data-table-pagination';
-import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import AppLayout from '@/layouts/app-layout';
 import { cn } from '@/lib/utils';
 
@@ -86,9 +86,7 @@ export default function NotificationsIndex({
         }
     };
 
-    const unreadCount = notifications.data.filter(
-        (n) => !n.read_at,
-    ).length;
+    const unreadCount = notifications.data.filter((n) => !n.read_at).length;
 
     const getPaginationUrl = (page: number) => {
         return `/notifications?page=${page}`;
@@ -188,7 +186,9 @@ export default function NotificationsIndex({
                                                                     notification.id,
                                                                 )
                                                             }
-                                                            disabled={processing}
+                                                            disabled={
+                                                                processing
+                                                            }
                                                             className="h-8 w-8 p-0"
                                                         >
                                                             <CheckCheck className="h-4 w-4" />
@@ -232,4 +232,3 @@ export default function NotificationsIndex({
         </AppLayout>
     );
 }
-

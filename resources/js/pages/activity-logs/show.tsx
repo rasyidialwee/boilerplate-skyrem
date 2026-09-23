@@ -30,9 +30,7 @@ interface ActivityLogShowProps {
     activityLog: ActivityLog;
 }
 
-export default function ActivityLogShow({
-    activityLog,
-}: ActivityLogShowProps) {
+export default function ActivityLogShow({ activityLog }: ActivityLogShowProps) {
     const breadcrumbs: BreadcrumbItem[] = [
         {
             title: 'Activity Logs',
@@ -73,13 +71,13 @@ export default function ActivityLogShow({
 
     const hasChanges = Boolean(
         activityLog.attribute_changes &&
-            (activityLog.attribute_changes.old ||
-                activityLog.attribute_changes.attributes),
+        (activityLog.attribute_changes.old ||
+            activityLog.attribute_changes.attributes),
     );
 
     const hasProperties = Boolean(
         activityLog.properties &&
-            Object.keys(activityLog.properties).length > 0,
+        Object.keys(activityLog.properties).length > 0,
     );
 
     return (
@@ -115,7 +113,9 @@ export default function ActivityLogShow({
                                     <label className="text-sm font-medium text-muted-foreground">
                                         Description
                                     </label>
-                                    <p className="mt-1">{activityLog.description}</p>
+                                    <p className="mt-1">
+                                        {activityLog.description}
+                                    </p>
                                 </div>
                                 <div>
                                     <label className="text-sm font-medium text-muted-foreground">
@@ -233,4 +233,3 @@ export default function ActivityLogShow({
         </AppLayout>
     );
 }
-

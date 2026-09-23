@@ -27,7 +27,7 @@ interface UsersFormProps {
 }
 
 export default function UsersForm({ user, roles }: UsersFormProps) {
-    const { auth, url } = usePage<SharedData>().props;
+    const { url } = usePage<SharedData>().props;
     const isEditMode = !!user;
 
     const breadcrumbs: BreadcrumbItem[] = [

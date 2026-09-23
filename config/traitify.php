@@ -1,5 +1,9 @@
 <?php
 
+use CleaniqueCoders\Traitify\Generators\SlugGenerator;
+use CleaniqueCoders\Traitify\Generators\TokenGenerator;
+use CleaniqueCoders\Traitify\Generators\UuidGenerator;
+
 return [
     /*
     |--------------------------------------------------------------------------
@@ -16,7 +20,7 @@ return [
 
     'generators' => [
         'token' => [
-            'class' => \CleaniqueCoders\Traitify\Generators\TokenGenerator::class,
+            'class' => TokenGenerator::class,
             'config' => [
                 'length' => 128,
                 'pool' => 'auto', // 'auto', 'alpha', 'alphanumeric', 'numeric', 'hex'
@@ -27,7 +31,7 @@ return [
         ],
 
         'uuid' => [
-            'class' => \CleaniqueCoders\Traitify\Generators\UuidGenerator::class,
+            'class' => UuidGenerator::class,
             'config' => [
                 'version' => 'ordered', // 'ordered', 'v1', 'v3', 'v4', 'v5'
                 'format' => 'string', // 'string', 'binary', 'hex'
@@ -39,7 +43,7 @@ return [
         ],
 
         'slug' => [
-            'class' => \CleaniqueCoders\Traitify\Generators\SlugGenerator::class,
+            'class' => SlugGenerator::class,
             'config' => [
                 'separator' => '-',
                 'language' => 'en',

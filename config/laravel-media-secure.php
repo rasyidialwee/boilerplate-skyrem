@@ -3,6 +3,8 @@
 use CleaniqueCoders\LaravelMediaSecure\Http\Controllers\MediaController;
 use CleaniqueCoders\LaravelMediaSecure\Http\Middleware\ValidateMediaAccess;
 use CleaniqueCoders\LaravelMediaSecure\Http\Middleware\ValidateSignedMediaAccess;
+use CleaniqueCoders\LaravelMediaSecure\Policies\MediaPolicy;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 return [
     /**
@@ -11,7 +13,7 @@ return [
      * This specifies the Media model class from Spatie's MediaLibrary package
      * that will be used for media file management and database operations.
      */
-    'model' => \Spatie\MediaLibrary\MediaCollections\Models\Media::class,
+    'model' => Media::class,
 
     /**
      * Media Access Policy Class
@@ -19,7 +21,7 @@ return [
      * This policy class handles authorization logic for media access.
      * It determines whether a user can view, download, or stream specific media files.
      */
-    'policy' => \CleaniqueCoders\LaravelMediaSecure\Policies\MediaPolicy::class,
+    'policy' => MediaPolicy::class,
 
     /**
      * Media Controller Configuration

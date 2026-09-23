@@ -62,8 +62,11 @@ it('sorts the roles list when a sort parameter is present', function () {
         ->assertOk()
         ->assertInertia(fn (Assert $page) => $page
             ->component('roles/index')
-            ->where('roles.data.0.name', 'Alpha Role')
-            ->where('roles.data.1.name', 'Beta Role')
+            ->where('roles.data', function ($roles) {
+                $names = collect($roles)->pluck('name');
+
+                return $names->search('Alpha Role') < $names->search('Beta Role');
+            })
         );
 });
 

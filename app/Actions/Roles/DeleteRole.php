@@ -3,6 +3,7 @@
 namespace App\Actions\Roles;
 
 use Spatie\Permission\Models\Role;
+use Spatie\Permission\PermissionRegistrar;
 
 class DeleteRole
 {
@@ -11,6 +12,6 @@ class DeleteRole
         $role->delete();
 
         // Clear the permission cache
-        app()->make(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();
+        app()->make(PermissionRegistrar::class)->forgetCachedPermissions();
     }
 }

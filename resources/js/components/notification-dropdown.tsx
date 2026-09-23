@@ -1,3 +1,4 @@
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
     DropdownMenu,
@@ -5,12 +6,11 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Badge } from '@/components/ui/badge';
-import { Bell } from 'lucide-react';
-import { HTMLAttributes, useState } from 'react';
-import { Link, router, usePage } from '@inertiajs/react';
 import { cn } from '@/lib/utils';
 import { type SharedData } from '@/types';
+import { Link, router, usePage } from '@inertiajs/react';
+import { Bell } from 'lucide-react';
+import { HTMLAttributes, useState } from 'react';
 
 interface Notification {
     id: number;
@@ -30,10 +30,12 @@ export default function NotificationDropdown({
     className = '',
     ...props
 }: NotificationDropdownProps) {
-    const page = usePage<SharedData & {
-        unreadNotifications?: Notification[];
-        unreadNotificationCount?: number;
-    }>();
+    const page = usePage<
+        SharedData & {
+            unreadNotifications?: Notification[];
+            unreadNotificationCount?: number;
+        }
+    >();
     const unreadNotifications = page.props.unreadNotifications || [];
     const unreadNotificationCount = page.props.unreadNotificationCount || 0;
     const [isOpen, setIsOpen] = useState(false);
@@ -74,7 +76,7 @@ export default function NotificationDropdown({
                         {unreadNotificationCount > 0 && (
                             <Badge
                                 variant="destructive"
-                                className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full p-0 text-xs"
+                                className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full p-0 text-xs"
                             >
                                 {unreadNotificationCount > 9
                                     ? '9+'
@@ -108,14 +110,15 @@ export default function NotificationDropdown({
                                     key={notification.id}
                                     className={cn(
                                         'px-3 py-2.5 transition-colors',
-                                        !notification.read_at &&
-                                            'bg-accent/50',
+                                        !notification.read_at && 'bg-accent/50',
                                     )}
                                 >
                                     <div
                                         className="cursor-pointer"
                                         onClick={() =>
-                                            handleNotificationClick(notification)
+                                            handleNotificationClick(
+                                                notification,
+                                            )
                                         }
                                     >
                                         <div className="flex items-center gap-2">
@@ -132,7 +135,7 @@ export default function NotificationDropdown({
                                                 <div className="h-2 w-2 shrink-0 rounded-full bg-primary" />
                                             )}
                                         </div>
-                                        <p className="mt-0.5 text-xs text-muted-foreground line-clamp-2">
+                                        <p className="mt-0.5 line-clamp-2 text-xs text-muted-foreground">
                                             {notification.message}
                                         </p>
                                     </div>
@@ -182,4 +185,3 @@ export default function NotificationDropdown({
         </div>
     );
 }
-

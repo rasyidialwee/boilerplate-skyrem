@@ -30,7 +30,7 @@ Route::get('/', function () {
     try {
         $systemSettings = app(SystemSettings::class);
         $canRegister = $systemSettings->registration_enabled && Features::enabled(Features::registration());
-    } catch (\Exception $e) {
+    } catch (Exception $e) {
         // If settings table doesn't exist yet, default to enabled
         $canRegister = Features::enabled(Features::registration());
     }
