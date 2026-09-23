@@ -1,4 +1,4 @@
-name: ci
+name: Verify
 
 on:
   push:
@@ -11,8 +11,12 @@ on:
       - main
   workflow_dispatch:
 
+concurrency:
+  group: verify-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  ci:
+  verify:
     runs-on: ubuntu-latest
 
     services:
@@ -51,7 +55,6 @@ jobs:
         with:
           php-version: '8.4'
           tools: composer:v2
-          coverage: xdebug
           extensions: mbstring, xml, ctype, iconv, intl, pdo, pdo_mysql, dom, filter, gd, json, phar, posix, random, sodium, tokenizer, zip
 
       - name: Setup Node
@@ -106,6 +109,9 @@ jobs:
 
       - name: Lint Frontend
         run: npm run lint
+
+      - name: TypeScript
+        run: npm run types
 
       - name: Rector
         run: vendor/bin/rector process --dry-run --no-progress-bar

@@ -151,6 +151,9 @@ When `./vendor/bin/sail up` is running, typical services are:
 | **Reverb**      | `localhost:8080`             | WebSocket server (run via `artisan reverb:start`)     |
 
 ## Code Quality Workflow
+
+GitHub Actions runs a single **Verify** workflow ([`.github/workflows/verify.yml`](.github/workflows/verify.yml)) on pushes and PRs to `main` / `develop`: Pint, Prettier, ESLint, TypeScript, Rector dry-run, Composer audit, PHPStan, asset build, migrations, and Pest. Use the local commands below to match that gate before you push.
+
 ### PHP (Composer scripts via Sail)
 
 ```bash
