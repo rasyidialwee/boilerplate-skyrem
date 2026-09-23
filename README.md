@@ -152,7 +152,7 @@ When `./vendor/bin/sail up` is running, typical services are:
 
 ## Code Quality Workflow
 
-GitHub Actions runs a single **Verify** workflow ([`.github/workflows/verify.yml`](.github/workflows/verify.yml)) on pushes and PRs to `main` / `develop`: Pint, Prettier, ESLint, TypeScript, Rector dry-run, Composer audit, PHPStan, asset build, migrations, and Pest. Use the local commands below to match that gate before you push.
+GitHub Actions runs a single **Verify** workflow ([`.github/workflows/verify.yml`](.github/workflows/verify.yml)) on pushes and PRs to `main` / `develop`: Pint, Prettier, ESLint, Wayfinder generate, TypeScript, Rector dry-run, Composer audit, PHPStan, asset build, migrations, and Pest. Use the local commands below to match that gate before you push. For local `npm run types`, generate Wayfinder first: `./vendor/bin/sail artisan wayfinder:generate --with-form` (or rely on `npm run dev` / `npm run build`, which run the Vite Wayfinder plugin).
 
 ### PHP (Composer scripts via Sail)
 
